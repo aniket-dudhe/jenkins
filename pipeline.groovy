@@ -3,12 +3,12 @@ pipeline {
     stages {
         stage('pull-stage') {
             steps {
-                git branch: 'main', url: 'https://github.com/Anilbamnote/student-ui-app.git'
+                git branch: 'main', url: 'https://github.com/aniket-dudhe/jenkins-44.git'
             }
         }
         stage('Build') {
             steps {
-                echo " build sucess"
+                sh 'mvn clean package'
             }
         }
         stage('test') {
