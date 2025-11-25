@@ -11,12 +11,7 @@
                  sh '/opt/maven/bin/mvn clean package'
              }
          }
-         stage('test') {
-             steps {
 
-               
-             }
-         }
          stage('deploy') {
              steps {
                  echo "deploy sucess"
