@@ -8,10 +8,28 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                sh '/opt/maven/bin/mvn clean package'
             }
         }
+        stage('test') {
+            steps {
+                withSonarQubeEnv(installationName:'sonar',credentialsId: 'sonar-token') {
+                        sh '/opt/maven/bin/mvn sonar:sonar'
+                   }   
+            }
+        }
+        //  stage('Quality-gate') {
+        //     steps {
+        //         timeout(10) {
     
+        //     }
+        //         waitForQualityGate true
+        //     }
+        // }
+        stage('deploy') {
+            steps {
+                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'tomcat-cred', path: '', url: 'http://35.78.123.34:8080')], contextPath: '/', war: '**/*.war'
+            }
         }
     }
 }
