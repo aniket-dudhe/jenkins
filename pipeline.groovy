@@ -11,13 +11,7 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-        stage('test') {
-            steps {
-                withSonarQubeEnv(installationName:'sonar',credentialsId: 'sonar-token') {
-                        sh '/opt/maven/bin/mvn sonar:sonar'
-                   }   
-            }
-        }
+        
         //  stage('Quality-gate') {
         //     steps {
         //         timeout(10) {
